@@ -13,9 +13,9 @@ const SingleProduct = () => {
                         />
                     </div>
                     <div className="right">
-                        <span className="name"></span>
-                        <span className="price"></span>
-                        <span className="desc"></span>
+                        <span className="name">Product name</span>
+                        <span className="price">300</span>
+                        <span className="desc">Product description</span>
 
                         <div className="cart-buttons">
                             <div className="quantity-buttons">

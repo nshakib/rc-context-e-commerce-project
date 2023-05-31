@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Header.scss";
 
  import { TbSearch } from "react-icons/tb";
@@ -6,10 +6,12 @@ import "./Header.scss";
  import { CgShoppingCart} from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
 import Cart from '../Cart/Cart';
+import Search from './Search/Search';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [showCart, setShowCart] = useState(false);
+    const [showSearch, setSearch] = useState(false);
     // const navigate = useNavigate();
     const handleScroll = () => {
         const offset = window.scrollY;
@@ -23,6 +25,7 @@ const Header = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, []);
+
     return (
       <>
         <header className={`main-header ${scrolled ? "sticky-header" : ""}`}>
@@ -34,16 +37,18 @@ const Header = () => {
             </ul>
             <div className="center">Simple Store</div>
             <div className="right">
-              <TbSearch />
+              <TbSearch onClick={()=>setSearch(true)} />
               <AiOutlineHeart />
               <span className="cart-icon" 
               onClick={()=>setShowCart(true)}>
                 <CgShoppingCart />
+                
               </span>
             </div>
           </div>
         </header>
         {showCart && <Cart setShowCart={setShowCart} />}
+        {showSearch && <Search setSearch={setSearch} />}
       </>
     );
 };
