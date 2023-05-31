@@ -1,7 +1,7 @@
 import React from 'react'
 import Products from "../../Products/Products";
 import "./Category.scss";
-const Category = () => {
+const Category = ({Categories}) => {
     return (
       <div className="category-main-content">
         <div className="layout">
