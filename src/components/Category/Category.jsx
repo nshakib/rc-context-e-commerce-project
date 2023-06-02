@@ -1,13 +1,19 @@
 import "./Category.scss";
-import Products from "../Products/Products";
-const Category = () => {
+const Category = ({categories}) => {
     return (
-        <div className="category-main-content">
-            <div className="layout">
-                <div className="category-title">
-                    
-                </div>
-                <Products innerPage={true}  />
+        <div className="shop-by-category">
+            <div className="categories">
+                {categories?.data.map((item) =>(
+                    <div key={item.id} className="category">
+                        <img src={
+                            process.env.REACT_APP_DEV_URL + 
+                            item.attributes.img.data.attributes
+                            } 
+                            alt="" 
+                        />
+                    </div>
+                ))}
+                
             </div>
         </div>
     )

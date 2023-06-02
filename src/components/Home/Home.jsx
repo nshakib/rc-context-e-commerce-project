@@ -11,20 +11,21 @@ import { Context } from '../../utils/context';
 const Home = () => {
 const {categories, setCategories, products, setProducts} = useContext(Context);
 
-useEffect(() =>{
-getCategories();
-getProducts();
-},[])
+    useEffect(() =>{
+
+        getProducts();
+        getCategories();
+    }, [])
 
 const getProducts = () =>{
-    fetchDataFromApi("/api/productss?populate=*").then(res => {
+    fetchDataFromApi("/api/products?populate=*").then((res) => {
         console.log(res)
         setProducts(res);
     });
 }
 
 const getCategories = () =>{
-    fetchDataFromApi("/api/categories?populate=*").then(res => {
+    fetchDataFromApi("/api/categories?populate=*").then((res) => {
         console.log(res)
         setCategories(res);
     });
@@ -35,7 +36,7 @@ const getCategories = () =>{
         <div className='main-content'>
             <div className="layout">
                 <Category categories={categories} />
-                <Products products={products} headingText="Popular products" />
+                <Products products={products} headingText="Popular Products" />
             </div>
         </div>
     </div>;

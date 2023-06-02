@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Header.scss";
 
  import { TbSearch } from "react-icons/tb";
  import { AiOutlineHeart } from "react-icons/ai";
  import { CgShoppingCart} from "react-icons/cg";
-import { useNavigate } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import Search from './Search/Search';
 
