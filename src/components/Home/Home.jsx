@@ -2,10 +2,10 @@ import React, { useEffect, useContext } from 'react'
 import Banner from "./Banner/Banner";
 
 import "./Home.scss";
-import Category from '../Category/Category';
 import Products from '../Products/Products';
 import { fetchDataFromApi } from '../../utils/api';
 import { Context } from '../../utils/context';
+import Category from './Category/Category';
 
 
 const Home = () => {
@@ -24,19 +24,19 @@ const getProducts = () =>{
     });
 }
 
-const getCategories = () =>{
+const getCategories = () => {
     fetchDataFromApi("/api/categories?populate=*").then((res) => {
-        console.log(res)
         setCategories(res);
     });
-}
+};
 
     return <div className="home">
         <Banner />
         <div className='main-content'>
             <div className="layout">
                 <Category categories={categories} />
-                <Products products={products} headingText="Popular Products" />
+                <Products products={products} 
+                headingText="Popular Products" />
             </div>
         </div>
     </div>;

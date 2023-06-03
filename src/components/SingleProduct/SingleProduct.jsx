@@ -1,21 +1,29 @@
 import { FaCartPlus, FaFacebookF, FaInstagram, FaLinkedinIn, FaPinterest, FaTwitter } from "react-icons/fa";
 import "./SingleProduct.scss";
-import prod from "../../assets/products/headphone-prod-1.webp"
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+
+
 const SingleProduct = () => {
+    const {id} = useParams();
+    const data = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
+
+    if(!data) return;
+    const product = data.data?.[0].attributes;
     return (
         <div className="single-product-main-content">
             <div className="layout">
                 <div className="single-product-page">
                     <div className="left">
                         <img
-                            src={prod} alt=""
+                            src={process.env.REACT_APP_DEV_URL + product.img.data[0].attributes.url} alt=""
                         />
                     </div>
                     <div className="right">
-                        <span className="name">Product name</span>
-                        <span className="price">300</span>
-                        <span className="desc">Product description</span>
+                        <span className="name">{product.title}</span>
+                        <span className="price">{product.price}</span>
+                        <span className="desc">{product.desc}</span>
 
                         <div className="cart-buttons">
                             <div className="quantity-buttons">
