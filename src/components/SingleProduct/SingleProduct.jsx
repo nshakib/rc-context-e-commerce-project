@@ -3,11 +3,28 @@ import "./SingleProduct.scss";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { useContext, useState } from "react";
+import { Context } from "../../utils/context";
 
 
 const SingleProduct = () => {
+    const [quantity,setQuantity] = useState(1);
     const {id} = useParams();
     const {data} = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
+
+    const {handleAddToCart} = useContext(Context);
+
+    const increment = () =>{
+        setQuantity(prevState => prevState + 1);
+    }
+    const decrement = () =>{
+        setQuantity(prevState => {
+            if(prevState === 1){
+                return 1
+            }
+            return prevState - 1;
+        });
+    }
 
     if(!data) return;
     const product = data?.data?.[0]?.attributes;
@@ -24,17 +41,20 @@ const SingleProduct = () => {
                     </div>
                     <div className="right">
                         <span className="name">{product.title}</span>
-                        <span className="price">{product.price}</span>
+                        <span className="price">&#2547;{product.price}</span>
                         <span className="desc">{product.desc}</span>
 
                         <div className="cart-buttons">
                             <div className="quantity-buttons">
-                                <span >-</span>
-                                <span>5</span>
-                                <span >+</span>
+                                <span onClick={decrement}>-</span>
+                                <span>{quantity}</span>
+                                <span onClick={increment} >+</span>
                             </div>
                             <button
-                                className="add-to-cart-button"
+                                className="add-to-cart-button" 
+                                onClick={() => {handleAddToCart(data.data[0], quantity);
+                                    setQuantity(1);
+                                }}
                                
                             >
                                 <FaCartPlus size={20} />
@@ -63,7 +83,7 @@ const SingleProduct = () => {
                         </div>
                     </div>
                 </div>
-                <RelatedProducts />
+                <RelatedProducts productId={id} categoryId = {product.categories.data[0]?.id}/>
             </div>
         </div>
     )

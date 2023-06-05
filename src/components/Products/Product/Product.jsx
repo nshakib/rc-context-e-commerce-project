@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Product.scss";
 const Product = ({id,data}) => {
+  
     const navigate = useNavigate()
     return (
         <div className="product-card" onClick={() =>navigate("/product/" +id)}>
@@ -9,7 +10,7 @@ const Product = ({id,data}) => {
             </div>
             <div className="prod-details">
                 <span className="name">{data.title}</span>
-                <span className="price">{data.price}</span>
+                <span className="price">&#2547;{data.price}</span>
             </div>
         </div>
     )

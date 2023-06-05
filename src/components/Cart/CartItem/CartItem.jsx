@@ -1,30 +1,37 @@
 import { MdClose } from "react-icons/md";
 import "./CartItem.scss";
 import prod from "../../../assets/products/earbuds-prod-1.webp"
+import { useContext } from "react";
+import { Context } from "../../../utils/context";
 const CartItem = () => {
+
+  const {cartItems,  handleAddToCart,  handleRemoveToCart, handleCartProductCartQuantity} = useContext(Context)
   return (
     <div className="cart-products">
-      <div className="search-result-item">
-        <div className="image-container">
-          <img src={prod} alt="" />
-        </div>
-        <div className="prod-details">
-          <span className="name">Product Name</span>
-          <MdClose className="close-btn" />
-          <div className="quantity-buttons">
-            <span>-</span>
-            <span>5</span>
-            <span>+</span>
+      {cartItems.map((item) => (
+        <div key={item.id} className="search-result-item">
+          <div className="image-container">
+            {/* <img src={prod} alt="" /> */}
+            <img src={process.env.REACT_APP_DEV_URL +  item.attributes.img?.data?.[0]?.attributes.url} alt="" />
           </div>
-          <div className="text">
-            <span>3</span>
-            <span>x</span>
-            <span className="highlight">
-              <span>&#2547; 4567</span>
-            </span>
+          <div className="prod-details">
+            <span className="name">{item.attributes.title}</span>
+            <MdClose className="close-btn" onClick={() => handleRemoveToCart(item)}/>
+            <div className="quantity-buttons">
+              <span onClick={() => handleCartProductCartQuantity('dec', item)}>-</span>
+              <span>{item.attributes.quantity}</span>
+              <span onClick={() => handleCartProductCartQuantity('inc', item)}>+</span>
+            </div>
+            <div className="text">
+              <span>{item.attributes.quantity}</span>
+              <span>x</span>
+              <span className="highlight">
+                <span>&#2547; {item.attributes.price * item.attributes.quantity}</span>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };

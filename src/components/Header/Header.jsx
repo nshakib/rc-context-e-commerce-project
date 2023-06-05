@@ -6,12 +6,13 @@ import "./Header.scss";
  import { CgShoppingCart} from "react-icons/cg";
 import Cart from '../Cart/Cart';
 import Search from './Search/Search';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [showCart, setShowCart] = useState(false);
     const [showSearch, setSearch] = useState(false);
-    // const navigate = useNavigate();
+     const navigate = useNavigate();
     const handleScroll = () => {
         const offset = window.scrollY;
         if (offset > 200) {
@@ -30,11 +31,11 @@ const Header = () => {
         <header className={`main-header ${scrolled ? "sticky-header" : ""}`}>
           <div className="header-content">
             <ul className="left">
-              <li>Home</li>
+              <li onClick={() => navigate('/')}>Home</li>
               <li>About</li>
               <li>Categories</li>
             </ul>
-            <div className="center">Simple Store</div>
+            <div className="center" onClick={() => navigate('/')}>Simple Store</div>
             <div className="right">
               <TbSearch onClick={()=>setSearch(true)} />
               <AiOutlineHeart />
