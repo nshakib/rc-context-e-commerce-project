@@ -12,7 +12,16 @@ const AppContext = ({children})=>{
     const location = useLocation();
 
 
+    useEffect(() => {
+        window.scrollTo(0,0);
+    },[location])
+
     useEffect(() =>{
+
+        let count = 0;
+        cartItems.map(item => count += item.attributes.quantity);
+        setCartCount(count);
+
         let subTotal = 0;
         cartItems.map(item => subTotal += item.attributes.price * item.attributes.quantity);
         setCartSubTotal(subTotal);

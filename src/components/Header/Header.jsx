@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Header.scss";
 
  import { TbSearch } from "react-icons/tb";
@@ -7,12 +7,15 @@ import "./Header.scss";
 import Cart from '../Cart/Cart';
 import Search from './Search/Search';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../utils/context';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [showCart, setShowCart] = useState(false);
     const [showSearch, setSearch] = useState(false);
-     const navigate = useNavigate();
+    const navigate = useNavigate();
+    const {cartCount } = useContext(Context); 
+
     const handleScroll = () => {
         const offset = window.scrollY;
         if (offset > 200) {
@@ -42,7 +45,7 @@ const Header = () => {
               <span className="cart-icon" 
               onClick={()=>setShowCart(true)}>
                 <CgShoppingCart />
-                
+                {!!cartCount && <span>{cartCount}</span>}
               </span>
             </div>
           </div>
