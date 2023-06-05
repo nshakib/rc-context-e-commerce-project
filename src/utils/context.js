@@ -13,9 +13,11 @@ const AppContext = ({children})=>{
 
 
     useEffect(() =>{
-        
+        let subTotal = 0;
+        cartItems.map(item => subTotal += item.attributes.price * item.attributes.quantity);
+        setCartSubTotal(subTotal);
 
-    })
+    },[cartItems])
     const handleAddToCart = (product, quantity) =>{
         let items = [...cartItems];
         let index = items.findIndex(p => p.id === product.id);
