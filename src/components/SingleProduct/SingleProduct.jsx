@@ -7,17 +7,19 @@ import useFetch from "../../hooks/useFetch";
 
 const SingleProduct = () => {
     const {id} = useParams();
-    const data = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
+    const {data} = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
 
     if(!data) return;
-    const product = data.data?.[0].attributes;
+    const product = data?.data?.[0]?.attributes;
+
     return (
         <div className="single-product-main-content">
             <div className="layout">
                 <div className="single-product-page">
                     <div className="left">
                         <img
-                            src={process.env.REACT_APP_DEV_URL + product.img.data[0].attributes.url} alt=""
+                            src={ process.env.REACT_APP_DEV_URL + 
+                                product.img.data[0].attributes.url } alt="" 
                         />
                     </div>
                     <div className="right">
@@ -43,9 +45,9 @@ const SingleProduct = () => {
                         <span className="divider" />
                         <div className="info-item">
                             <span className="text-bold">
-                                Category: 
+                                Category: {" "}
                                 <span>
-                                     Headphones
+                                     {product.categories.data[0]?.attributes.title}
                                 </span>
                             </span>
                             <span className="text-bold">
